@@ -58,22 +58,27 @@ function playRound(playerSelection, computerSelection) {
 const playerSelection = "rock";
 const computerSelection = computerPlay();
 
+
+//console.log(playRound(playerSelection, computerSelection));
+
+function prompt() {
+    var prompt = require('prompt');
+    var humanSelection;
+    prompt.start();
+        prompt.get('selection', function (err, result) {
+            //console.log('Human: ' + result.selection);
+            humanSelection = result.selection;
+        });
+        return humanSelection;
+}
+
 function game() {
     var rounds = 3;
     var playerSelection;
 
-    var prompt = require('prompt');
-    prompt.start();
-    for (var i = 0; i < rounds; i++) {
+    var humanSelection = prompt();
+    console.log("Human selects", humanSelection);
 
-        
-
-        prompt.get('selection', function (err, result) {
-
-            console.log('Human: ' + result.selection);
-        });
-    }
 }
 
 game()
-//console.log(playRound(playerSelection, computerSelection));
