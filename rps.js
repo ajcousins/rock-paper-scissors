@@ -1,18 +1,22 @@
-
 // Returns rock, paper or scissors at random.
 function computerPlay() {
     var i;
     switch (Math.floor(Math.random() * 3)) {
         case 0:
             i = "rock";
+            circle = document.getElementById("BScreen");
             break;
         case 1:
             i = "paper";
+            circle = document.getElementById("BScreen");
             break;
         case 2:
             i = "scissors";
+            circle = document.getElementById("BScreen");
             break;
     }
+    circle.classList.add("computerColor");
+    circle.children[0].src = `RPS-02_${i}.png`
     return i;
 }
 
@@ -20,15 +24,15 @@ function computerPlay() {
 function playRound(playerSelection, computerSelection) {
     if (playerSelection == "rock"){
         if (computerSelection == "rock") {
-            console.log("Rock cancels out rock.");
+            document.getElementById("textDisplay").innerHTML = "Rock cancels out rock."
             return "tie";
         }
         else if (computerSelection == "paper") {
-            console.log("Paper beats rock.")
+            document.getElementById("textDisplay").innerHTML = "Paper covers rock!"
             return "lose";
         }
         else if (computerSelection == "scissors") {
-            console.log("Rock beats scissors.")
+            document.getElementById("textDisplay").innerHTML = "Rock crushes scissors!"
             return "win";
         }
         else {
@@ -37,15 +41,15 @@ function playRound(playerSelection, computerSelection) {
     }
     else if (playerSelection == "paper"){
         if (computerSelection == "rock") {
-            console.log("Paper beats rock.")
+            document.getElementById("textDisplay").innerHTML = "Paper covers rock!"
             return "win";
         }
         else if (computerSelection == "paper") {
-            console.log("Paper cancels out paper.")
+            document.getElementById("textDisplay").innerHTML = "Paper cancels out paper."
             return "tie";
         }
         else if (computerSelection == "scissors") {
-            console.log("Scissors beats paper.")
+            document.getElementById("textDisplay").innerHTML = "Scissors cuts paper!"
             return "lose";
         }
         else {
@@ -54,73 +58,103 @@ function playRound(playerSelection, computerSelection) {
     }
     else if (playerSelection == "scissors"){
         if (computerSelection == "rock") {
-            console.log("Rock beats scissors.")
+            document.getElementById("textDisplay").innerHTML = "Rock crushes scissors!"
             return "lose";
         }
         else if (computerSelection == "paper") {
-            console.log("Scissors beats paper.")
+            document.getElementById("textDisplay").innerHTML = "Scissors cuts paper!"
             return "win";
         }
         else if (computerSelection == "scissors") {
-            console.log("Scissors cancels out scissors.")
+            document.getElementById("textDisplay").innerHTML = "Scissors cancels out scissors."
             return "tie";
         }
         else {
             return "lose";
         }
-    
-    }
-    else {
-        console.log("Player forfeits.");
-        return "lose";
     }
 }
 
-
-function game() {
-    var rounds = 1;
-    var playerSelection;
-    var wins = 0;
-
-    for (var i = 0; i < rounds; i++) {
-        var playerSelection = prompt(`Round ${i + 1}: \nRock, paper, scissors?`);
-        //console.log("Human selects", playerSelection);
-    
-        var computerSelection = computerPlay();
-        console.log(`Human selects ${playerSelection}. Computer selects ${computerSelection}`)
-
-        var result = playRound(playerSelection, computerSelection)
-            if (result == "win") {
-                wins++;
-                console.log("Win")
-            }
-            else if (result == "lose") {
-                console.log("Lose")
-            }
-            else {
-                wins += 0.5;
-                console.log("Tie")
-            }
-
-        console.log(`Current score\nHuman: ${wins}\nComputer: ${(i + 1) - wins}`)
-            
-        }
-
-    //console.log(playRound(playerSelection, computerSelection));
-    
-    if (wins == 1) {
-        console.log(`Human loses at 1 game to 5!`)
-    }
-    else if (wins > 2.5) {
-        console.log(`Human wins at ${wins} games to ${rounds - wins}`)
-    }
-    else if (wins == 2.5) {
-        console.log(`Draw with 2.5 wins.`)
-    }
-    else {
-        console.log(`Human loses at ${wins} games to ${rounds - wins}`)
-    }
-
+var round = 1;
+function roundCounter() {
+    round++;
+    roundDisplay = document.getElementById("round");
+    roundDisplay.textContent = `ROUND ${round}`;
 }
 
-//game()
+const buttonRock = document.querySelector(`div[data-button="rock"]`);
+const buttonPaper = document.querySelector(`div[data-button="paper"]`);
+const buttonScissors = document.querySelector(`div[data-button="scissors"]`);
+
+buttonRock.addEventListener("click", () => {
+    if (humanLives > 0 && computerLives > 0) {
+        a = document.getElementById("AScreen");
+        a.classList.add("humanColor");
+        a.children[0].src = "RPS-01_rock.png"
+        result = playRound("rock", computerPlay());
+        roundCounter();
+        lives(result);
+    }
+})
+
+buttonPaper.addEventListener("click", () => {
+    if (humanLives > 0 && computerLives > 0) {
+        a = document.getElementById("AScreen");
+        a.classList.add("humanColor");
+        a.children[0].src = "RPS-01_paper.png"
+        result = playRound("paper", computerPlay());
+        roundCounter();
+        lives(result);
+    }
+})
+
+buttonScissors.addEventListener("click", () => {
+    if (humanLives > 0 && computerLives > 0) {
+        a = document.getElementById("AScreen");
+        a.classList.add("humanColor");
+        a.children[0].src = "RPS-01_scissors.png"
+        result = playRound("scissors", computerPlay());
+        roundCounter();
+        lives(result);
+    }
+})
+
+function removeTransition() {
+    this.classList.remove('damage');
+}
+
+var humanLives = 5;
+var computerLives = 5;
+function lives(result) {
+    if (result == "win") {
+        computerLives--;
+        Bscreen = document.getElementById("BScreen")
+        Bscreen.classList.add("damage");
+        Bscreen.addEventListener('transitionend', removeTransition);
+    } else if (result == "lose") {
+        humanLives--;
+        Ascreen = document.getElementById("AScreen")
+        Ascreen.classList.add("damage");
+        Ascreen.addEventListener('transitionend', removeTransition);
+    }
+
+    if (humanLives < 5) {
+        a = document.getElementsByClassName("barH")[humanLives];
+        a.classList.add("lifeBarOut");
+        console.log(a);
+    }
+
+    if (computerLives < 5) {
+        b = document.getElementsByClassName("barC")[4 - computerLives];
+        b.classList.add("lifeBarOut");
+        console.log(b);
+    }
+
+    if (humanLives == 0) {
+        document.getElementById("textDisplay").innerHTML = `You lose!<br><br><a href=".">Play again?</a>`
+    }
+
+    if (computerLives == 0) {
+        document.getElementById("textDisplay").innerHTML = `You win!<br><br><a href=".">Play again?</a>`
+    }
+}

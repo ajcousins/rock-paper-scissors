@@ -6,7 +6,7 @@ h1 {
     font-family: 'Nerko One', cursive;
     font-weight: 700;
     color:#585858;
-    font-size: 4em;
+    font-size: 2em;
     width: auto;
     margin: 10px 0 10px;
 }
@@ -15,9 +15,26 @@ h2 {
     font-family: 'Nerko One', cursive;
     font-weight: 700;
     color:#585858;
-    font-size: 3em;
+    font-size: 1.5rem;
     width: auto;
-    margin: 10px 0 10px;
+    margin: 10px 0 5px;
+}
+
+h3 {
+    font-family: 'Share Tech Mono', monospace;
+    color:#585858;
+    font-size: 1rem;
+    width: auto;
+    margin: 40px 0 10px;
+}
+
+a {
+    color: #888888;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #f36615;
 }
 
 .containerAll {
@@ -25,39 +42,71 @@ h2 {
 }
 
 .containerSub {
-    width: 400px;
+    width: 200px;
     display: inline-block;
+}
+
+.bigCircleH {
+    height: 125px;
+    width: 125px;
+    border-color: #585858;
+    border-radius: 100%;
+    border-style: solid;
+    border-width: 7px;
+    margin: auto auto 10px;
+}
+
+.bigCircleC {
+    height: 125px;
+    width: 125px;
+    border-color: #585858;
+    border-radius: 100%;
+    border-style: solid;
+    border-width: 7px;
+    margin: auto auto 10px;
 }
 
 .humanColor {
     border-color: #1B7FBD;
+    color:#1B7FBD;
 }
 
 .computerColor {
     border-color: #BA201C;
-}
-
-
-
-.bigCircle {
-    height: 250px;
-    width: 250px;
-    border-color: #585858;
-    border-radius: 100%;
-    border-style: solid;
-    border-width: 15px;
-    margin: auto auto 20px;
+    color: #BA201C;
 }
 
 .smallCircle {
-    height: 80px;
-    width: 80px;
+    height: 40px;
+    width: 40px;
     border-radius: 100%;
     border-style: solid;
-    border-width: 5px;
+    border-width: 2px;
     display: inline-block;
 }
 
-.circTrans {
-    
+.smallCircleHuman:hover {
+    background-color: #fff67d;
+}
+
+.lifeContainer {
+    display: inline-flex;
+    margin: auto auto 10px;
+}
+
+.lifeBar {
+    width: 25px;
+    height: 10px;
+    background-color: #5bca2f;
+    margin: 1px;
+    border-radius: 2px;
+}
+
+.lifeBarOut {
+    background-color: #f0f0f0;
+}
+
+.damage {
+    background-color: #ff9292;
+    transition: all 0.5s;
 }
